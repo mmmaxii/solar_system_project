@@ -1,78 +1,172 @@
-body{
-    background:black;
-    color:white;
-    text-align:center;
-    font-family:Arial;
+body {
+    background: black;
+    color: white;
+    text-align: center;
+    font-family: Arial;
+    overflow-x: hidden;
 }
 
-.solar-system{
-    margin-top:100px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:40px;
+.solar-system {
+    position: relative;
+    width: 800px;
+    height: 800px;
+    margin: 50px auto;
 }
 
-.sun{
-    width:120px;
-    height:120px;
-    background:yellow;
-    border-radius:50%;
+.sun {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, #f0e130 0%, #f39c12 70%);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 50px #f39c12;
+    z-index: 10;
+    /*Esto lo agrego ya que neptuno se superpone por sobre los otros planetas*/
+    pointer-events: auto;
 }
 
-.planet{
-    border-radius:50%;
-    transition: transform 0.3s;
+.orbit {
+    position: absolute;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    /*Esto lo agrego ya que neptuno se superpone por sobre los otros planetas*/
+    pointer-events: none;
 }
 
-.planet:hover{
-    transform:scale(1.3);
+.planet {
+    position: absolute;
+    border-radius: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: transform 0.3s ease;
+    /*Esto lo agrego ya que neptuno se superpone por sobre los otros planetas*/
+    pointer-events: auto;
 }
 
-.mercury{
-    width:20px;
-    height:20px;
-    background:gray;
+.planet:hover {
+    transform: translateX(-50%) scale(1.5);
 }
 
-.venus{
-    width:35px;
-    height:35px;
-    background:orange;
+@keyframes rotate-orbit {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }
 
-.earth{
-    width:40px;
-    height:40px;
-    background:blue;
+.mercury-orbit {
+    width: 150px;
+    height: 150px;
+    animation: rotate-orbit 5s linear infinite;
+    animation-delay: -1s;
+}
+.mercury {
+    width: 12px;
+    height: 12px;
+    background: #95a5a6;
+    top: -6px;
 }
 
-.mars{
-    width:30px;
-    height:30px;
-    background:red;
+.venus-orbit {
+    width: 210px;
+    height: 210px;
+    animation: rotate-orbit 8s linear infinite;
+    animation-delay: 0s;
+
+}
+.venus {
+    width: 20px;
+    height: 20px;
+    background: #e67e22;
+    top: -10px;
 }
 
-.jupiter{
-    width: 50px;
-    height: 50px;
-    background: rgb(211, 184, 48);
+.earth-orbit {
+    width: 290px;
+    height: 290px;
+    animation: rotate-orbit 12s linear infinite;
+    animation-delay: -10s;
+}
+.earth {
+    width: 22px;
+    height: 22px;
+    background: #3498db;
+    top: -11px;
 }
 
-.saturn{
+.mars-orbit {
+    width: 360px;
+    height: 360px;
+    animation: rotate-orbit 15s linear infinite;
+    animation-delay: -6s;
+
+}
+.mars {
+    width: 18px;
+    height: 18px;
+    background: #e74c3c;
+    top: -9px;
+}
+
+.jupiter-orbit {
+    width: 480px;
+    height: 480px;
+    animation: rotate-orbit 25s linear infinite;
+    animation-delay: -15s;
+
+}
+.jupiter {
     width: 45px;
     height: 45px;
-    background: rgb(139, 137, 27);
+    background: #d3b830;
+    top: -22px;
 }
 
-.uranus{
+.saturn-orbit {
+    width: 590px;
+    height: 590px;
+    animation: rotate-orbit 35s linear infinite;
+    animation-delay: -20s;
+
+}
+.saturn {
     width: 40px;
     height: 40px;
-    background: rgb(37, 136, 182);
+    background: #8b891b;
+    top: -20px;
 }
 
-.neptune{
-    width: 35px;
-    height: 35  px;
-    background: rgb(47, 18, 163);
+.uranus-orbit {
+    width: 680px;
+    height: 680px;
+    animation: rotate-orbit 45s linear infinite;
+    animation-delay: -12s;
+
+}
+.uranus {
+    width: 30px;
+    height: 30px;
+    background: #2588b6;
+    top: -15px;
+}
+
+.neptune-orbit {
+    width: 760px;
+    height: 760px;
+    animation: rotate-orbit 55s linear infinite;
+    animation-delay: -20s;
+
+}
+.neptune {
+    width: 28px;
+    height: 28px;
+    background: #2f12a3;
+    top: -14px;
 }
