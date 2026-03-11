@@ -1,5 +1,4 @@
 
-
 body {
     background-size: 100%;       /* Cubre toda la pantalla */
     background-position: center;  /* Centra la imagen */
@@ -8,11 +7,13 @@ body {
     background-color: black;      /* Color de respaldo mientras carga */
 
     /* Tus otros estilos */
+    height: 20vh;
+
     color: white;
     text-align: center;
     font-family: Arial, sans-serif;
     margin: 0;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 
@@ -31,10 +32,13 @@ body::before {
 }
 
 .solar-system {
-    position: relative;
+    position: absolute;
+    bottom: -400px;   /* mueve el centro hacia abajo */
+    left: 50%;
+    transform: translateX(-50%) scale(1.4);
+
     width: 800px;
     height: 800px;
-    margin: 50px auto;
 }
 
 .sun {
@@ -64,7 +68,7 @@ body::before {
 }
 
 .orbit:hover {
-    border-color: rgba(159, 159, 159, 0.5);
+    border-color: rgba(214, 214, 214, 0.5);
 }
 
 .planet {
@@ -99,11 +103,11 @@ body::before {
 
 @keyframes rotate-orbit {
     from {
-        transform: translate(-50%, -50%) rotate(0deg);
+        transform: translate(-50%, -50%) rotate(-92deg);
     }
 
     to {
-        transform: translate(-50%, -50%) rotate(360deg);
+        transform: translate(-50%, -50%) rotate(92deg);
     }
 }
 
@@ -112,7 +116,7 @@ body::before {
 .mercury-orbit {
     width: 150px;
     height: 150px;
-    animation: rotate-orbit 5s linear infinite;
+    animation: rotate-orbit 2.4s linear infinite;
     animation-delay: -0.1s;
     z-index: 90;
 }
@@ -131,7 +135,7 @@ body::before {
 .venus-orbit {
     width: 210px;
     height: 210px;
-    animation: rotate-orbit 8s linear infinite;
+    animation: rotate-orbit 6.2s linear infinite;
     animation-delay: 0s;
     z-index: 80;
 }
@@ -150,7 +154,7 @@ body::before {
 .earth-orbit {
     width: 290px;
     height: 290px;
-    animation: rotate-orbit 12s linear infinite;
+    animation: rotate-orbit 10s linear infinite;
     animation-delay: -2s;
     z-index: 70;
 }
@@ -169,7 +173,7 @@ body::before {
 .mars-orbit {
     width: 360px;
     height: 360px;
-    animation: rotate-orbit 15s linear infinite;
+    animation: rotate-orbit 18.8s linear infinite;
     animation-delay: -1s;
     z-index: 60;
 }
@@ -188,8 +192,8 @@ body::before {
 .jupiter-orbit {
     width: 480px;
     height: 480px;
-    animation: rotate-orbit 25s linear infinite;
-    animation-delay: -20s;
+    animation: rotate-orbit 118.6s linear infinite;
+    animation-delay: 0s;
     z-index: 50;
 }
 
@@ -207,8 +211,8 @@ body::before {
 .saturn-orbit {
     width: 590px;
     height: 590px;
-    animation: rotate-orbit 35s linear infinite;
-    animation-delay: -6s;
+    animation: rotate-orbit 294.6s linear infinite;
+    animation-delay: 0s;
     z-index: 40;
 }
 
@@ -226,8 +230,8 @@ body::before {
 .uranus-orbit {
     width: 680px;
     height: 680px;
-    animation: rotate-orbit 45s linear infinite;
-    animation-delay: -5s;
+    animation: rotate-orbit 840s linear infinite;
+    animation-delay: 0s;
     z-index: 30;
 }
 
@@ -245,8 +249,8 @@ body::before {
 .neptune-orbit {
     width: 760px;
     height: 760px;
-    animation: rotate-orbit 55s linear infinite;
-    animation-delay: -1s;
+    animation: rotate-orbit 1648s linear infinite;
+    animation-delay: 0s;
     z-index: 20;
 }
 

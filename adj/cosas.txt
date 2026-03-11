@@ -6,3 +6,22 @@ Primero hacer toda la paja del env. Luetgo de eso con la env activada ejecutamos
 django-admin startproyect solar_system    ##Este es mi caso
 
 luego dentro de la carpeta que cramos ejecutamos
+
+
+
+
+Conceptos fisicos. Hacemos los movimiento de los planetas a escala. Para esto tenemos que saber la velocidad relativa de la orbita tomando la tierra como ref (1 año = 1s)
+
+| Planeta  | Periodo |
+| -------- | ------- |
+| Mercurio | 0.24    |
+| Venus    | 0.62    |
+| Tierra   | 1       |
+| Marte    | 1.88    |
+| Júpiter  | 11.86   |
+| Saturno  | 29.46   |
+| Urano    | 84      |
+| Neptuno  | 164.8   |
+
+
+Multiplicamos esto x10 para que la orbita de la tierra se haga en 10s y se vea mejor visualmente.
