@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'planets', # Esta es la que agregamos nosotros. 
 ]
 
 MIDDLEWARE = [

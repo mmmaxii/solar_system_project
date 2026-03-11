@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ name }}</title>
+</head>
+
+<body>
+
+<h1>Planet: {{ name }}</h1>
+
+<a href="{% url 'planets:home' %}">
+Volver al sistema solar
+</a>
+
+</body>
+
+</html>

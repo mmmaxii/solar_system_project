@@ -1,0 +1,8 @@
+Es complicado hacer un proyecto en django al principio, pero con todos estos pasos
+sera mucho mas facil. 
+
+Primero hacer toda la paja del env. Luetgo de eso con la env activada ejecutamos
+
+django-admin startproyect solar_system    ##Este es mi caso
+
+luego dentro de la carpeta que cramos ejecutamos

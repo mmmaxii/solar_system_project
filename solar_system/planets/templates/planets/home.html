@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Solar System Explorer</title>
+
+    <link rel="stylesheet" href="{% static 'planets/css/styles.css' %}">
+</head>
+
+<body>
+
+<h1>Solar System Explorer</h1>
+
+<div class="solar-system">
+
+    <a href="{% url 'planets:star_detail' %}">
+        <div class="sun"></div>
+    </a>
+    <a href="{% url 'planets:planet_detail' 'mercury' %}">
+        <div class="planet mercury"></div>
+    </a>
+
+    <a href="{% url 'planets:planet_detail' 'venus' %}">
+        <div class="planet venus"></div>
+    </a>
+
+    <a href="{% url 'planets:planet_detail' 'earth' %}">
+        <div class="planet earth"></div>
+    </a>
+
+    <a href="{% url 'planets:planet_detail' 'mars' %}">
+        <div class="planet mars"></div>
+    </a>
+
+    <a href = "{% url 'planets:planet_detail' 'jupiter'%}">
+        <div class="planet jupiter"></div>
+    </a>
+
+    <a href = "{% url 'planets:planet_detail' 'saturn'%}">
+        <div class="planet saturn"></div>
+    </a>
+
+    <a href = "{% url 'planets:planet_detail' 'uranus'%}">
+        <div class="planet uranus"></div>
+    </a>
+
+    <a href = "{% url 'planets:planet_detail' 'neptune'%}">
+        <div class="planet neptune"></div>
+    </a>
+
+</div>
+
+</body>
+</html>
