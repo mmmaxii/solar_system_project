@@ -17,25 +17,30 @@ body {
     position: absolute;
     width: 100px;
     height: 100px;
-    background: radial-gradient(circle, #f0e130 0%, #f39c12 70%);
+    background: radial-gradient(circle, #fffd9e 0%, #f39c12 60%, #e67e22 100%);
     border-radius: 50%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 50px #f39c12;
-    z-index: 10;
-    /*Esto lo agrego ya que neptuno se superpone por sobre los otros planetas*/
+    box-shadow: 0 0 60px 20px rgba(243, 156, 18, 0.5);
+    z-index: 100;
     pointer-events: auto;
 }
 
 .orbit {
     position: absolute;
-    border: 1px dashed rgba(255, 255, 255, 0.2);
+    border: 1px dashed rgba(255, 255, 255, 0.15);
     border-radius: 50%;
     top: 50%;
     left: 50%;
-    /*Esto lo agrego ya que neptuno se superpone por sobre los otros planetas*/
-    pointer-events: none;
+    /* Ahora la órbita sí recibe clics */
+    pointer-events: auto; 
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.orbit:hover {
+    border-color: rgba(159, 159, 159, 0.5);
 }
 
 .planet {
@@ -44,8 +49,23 @@ body {
     left: 50%;
     transform: translateX(-50%);
     transition: transform 0.3s ease;
-    /*Esto lo agrego ya que neptuno se superpone por sobre los otros planetas*/
-    pointer-events: auto;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* EL CAMBIO CLAVE: Cuando la ÓRBITA recibe hover, el PLANETA crece */
+.orbit:hover .planet {
+    transform: translateX(-50%) scale(1.5);
+}
+/* Capa de sombra proporcional */
+.planet::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
 }
 
 .planet:hover {
@@ -56,22 +76,31 @@ body {
     from {
         transform: translate(-50%, -50%) rotate(0deg);
     }
+
     to {
         transform: translate(-50%, -50%) rotate(360deg);
     }
 }
 
+/* --- Configuración de Planetas con Sombras Proporcionales --- */
+
 .mercury-orbit {
     width: 150px;
     height: 150px;
     animation: rotate-orbit 5s linear infinite;
-    animation-delay: -1s;
+    animation-delay: -0.1s;
+    z-index: 90;
 }
+
 .mercury {
-    width: 12px;
-    height: 12px;
-    background: #95a5a6;
-    top: -6px;
+    width: 14px;
+    height: 14px;
+    background: radial-gradient(circle at bottom, #bdc3c7, #2c3e50);
+    top: -7px;
+}
+
+.mercury::after {
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.8);
 }
 
 .venus-orbit {
@@ -79,94 +108,130 @@ body {
     height: 210px;
     animation: rotate-orbit 8s linear infinite;
     animation-delay: 0s;
-
+    z-index: 80;
 }
+
 .venus {
-    width: 20px;
-    height: 20px;
-    background: #e67e22;
-    top: -10px;
+    width: 22px;
+    height: 22px;
+    background: radial-gradient(circle at bottom, #f39c12, #5e3300);
+    top: -11px;
+}
+
+.venus::after {
+    box-shadow: inset 0px 7px 6px rgba(0, 0, 0, 0.8);
 }
 
 .earth-orbit {
     width: 290px;
     height: 290px;
     animation: rotate-orbit 12s linear infinite;
-    animation-delay: -10s;
+    animation-delay: -2s;
+    z-index: 70;
 }
+
 .earth {
-    width: 22px;
-    height: 22px;
-    background: #3498db;
-    top: -11px;
+    width: 24px;
+    height: 24px;
+    background: radial-gradient(circle at bottom, #3498db, #0a2e4d);
+    top: -12px;
+}
+
+.earth::after {
+    box-shadow: inset 0px 8px 8px rgba(0, 0, 0, 0.8);
 }
 
 .mars-orbit {
     width: 360px;
     height: 360px;
     animation: rotate-orbit 15s linear infinite;
-    animation-delay: -6s;
-
+    animation-delay: -1s;
+    z-index: 60;
 }
+
 .mars {
-    width: 18px;
-    height: 18px;
-    background: #e74c3c;
-    top: -9px;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at bottom, #e74c3c, #4d100a);
+    top: -10px;
+}
+
+.mars::after {
+    box-shadow: inset 0px 6px 6px rgba(0, 0, 0, 0.8);
 }
 
 .jupiter-orbit {
     width: 480px;
     height: 480px;
     animation: rotate-orbit 25s linear infinite;
-    animation-delay: -15s;
-
+    animation-delay: -20s;
+    z-index: 50;
 }
+
 .jupiter {
-    width: 45px;
-    height: 45px;
-    background: #d3b830;
-    top: -22px;
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle at bottom, #f1c40f, #4d3d0a);
+    top: -25px;
+}
+
+.jupiter::after {
+    box-shadow: inset 0px 18px 15px rgba(0, 0, 0, 0.9);
 }
 
 .saturn-orbit {
     width: 590px;
     height: 590px;
     animation: rotate-orbit 35s linear infinite;
-    animation-delay: -20s;
-
+    animation-delay: -6s;
+    z-index: 40;
 }
+
 .saturn {
-    width: 40px;
-    height: 40px;
-    background: #8b891b;
-    top: -20px;
+    width: 44px;
+    height: 44px;
+    background: radial-gradient(circle at bottom, #d4ac0d, #3b3100);
+    top: -22px;
+}
+
+.saturn::after {
+    box-shadow: inset 0px 15px 12px rgba(0, 0, 0, 0.9);
 }
 
 .uranus-orbit {
     width: 680px;
     height: 680px;
     animation: rotate-orbit 45s linear infinite;
-    animation-delay: -12s;
-
+    animation-delay: -5s;
+    z-index: 30;
 }
+
 .uranus {
-    width: 30px;
-    height: 30px;
-    background: #2588b6;
-    top: -15px;
+    width: 34px;
+    height: 34px;
+    background: radial-gradient(circle at bottom, #aed6f1, #1b4f72);
+    top: -17px;
+}
+
+.uranus::after {
+    box-shadow: inset 0px 12px 10px rgba(0, 0, 0, 0.8);
 }
 
 .neptune-orbit {
     width: 760px;
     height: 760px;
     animation: rotate-orbit 55s linear infinite;
-    animation-delay: -20s;
-
+    animation-delay: -1s;
+    z-index: 20;
 }
+
 .neptune {
-    width: 28px;
-    height: 28px;
-    background: #2f12a3;
-    top: -14px;
+    width: 32px;
+    height: 32px;
+    background: radial-gradient(circle at bottom, #5dade2, #151b4d);
+    top: -16px;
+}
+
+.neptune::after {
+    box-shadow: inset 0px 10px 8px rgba(0, 0, 0, 0.8);
 }
