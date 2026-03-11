@@ -2,67 +2,70 @@
 
 <!doctype html>
 <html>
-  <head>
-    <title>Solar System Explorer</title>
-    <link rel="stylesheet" href="{% static 'planets/css/styles.css' %}" />
-  </head>
+<head>
+  <title>Solar System Explorer</title>
+  <link rel="stylesheet" href="{% static 'planets/css/styles.css' %}" />
+</head>
 
-  <body>
-    <h1>Solar System Explorer</h1>
+<body style="background-image: url('{% static "planets/images/bg_stars.jpg" %}')">
 
-    <div class="solar-system">
-      <a href="{% url 'planets:star_detail' %}">
-        <div class="sun"></div>
-      </a>
+  <h1>Solar System Explorer</h1>
 
+  <div class="solar-system">
+
+    <a href="{% url 'planets:star_detail' %}">
+      <div class="sun"></div>
+    </a>
+
+    <a href="{% url 'planets:planet_detail' 'mercury' %}">
       <div class="orbit mercury-orbit">
-        <a href="{% url 'planets:planet_detail' 'mercury' %}">
-          <div class="planet mercury"></div>
-        </a>
+        <div class="planet mercury"></div>
       </div>
+    </a>
 
+    <a href="{% url 'planets:planet_detail' 'venus' %}">
       <div class="orbit venus-orbit">
-        <a href="{% url 'planets:planet_detail' 'venus' %}">
-          <div class="planet venus"></div>
-        </a>
+        <div class="planet venus"></div>
       </div>
+    </a>
 
+    <a href="{% url 'planets:planet_detail' 'earth' %}">
       <div class="orbit earth-orbit">
-        <a href="{% url 'planets:planet_detail' 'earth' %}">
-          <div class="planet earth"></div>
-        </a>
+        <div class="planet earth"></div>
       </div>
+    </a>
 
+    <a href="{% url 'planets:planet_detail' 'mars' %}">
       <div class="orbit mars-orbit">
-        <a href="{% url 'planets:planet_detail' 'mars' %}">
-          <div class="planet mars"></div>
-        </a>
+        <div class="planet mars"></div>
       </div>
+    </a>
 
+    <a href="{% url 'planets:planet_detail' 'jupiter' %}">
       <div class="orbit jupiter-orbit">
-        <a href="{% url 'planets:planet_detail' 'jupiter' %}">
-          <div class="planet jupiter"></div>
-        </a>
+        <div class="planet jupiter"></div>
       </div>
+    </a>
 
+    <a href="{% url 'planets:planet_detail' 'saturn' %}">
       <div class="orbit saturn-orbit">
-        <a href="{% url 'planets:planet_detail' 'saturn' %}">
-          <div class="planet saturn"></div>
-        </a>
+        <div class="planet saturn"></div>
       </div>
+    </a>
 
+    <a href="{% url 'planets:planet_detail' 'uranus' %}">
       <div class="orbit uranus-orbit">
-        <a href="{% url 'planets:planet_detail' 'uranus' %}">
-          <div class="planet uranus"></div>
-        </a>
+        <div class="planet uranus"></div>
       </div>
+    </a>
 
+    <a href="{% url 'planets:planet_detail' 'neptune' %}">
       <div class="orbit neptune-orbit">
-        <a href="{% url 'planets:planet_detail' 'neptune' %}">
-          <div class="planet neptune"></div>
-        </a>
+        <div class="planet neptune"></div>
       </div>
+    </a>
 
-    </div>
-  </body>
+  </div>
+
+</body>
 </html>
