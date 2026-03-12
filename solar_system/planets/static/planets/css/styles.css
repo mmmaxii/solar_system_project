@@ -1,12 +1,10 @@
-
 body {
-    background-size: 100%;       /* Cubre toda la pantalla */
-    background-position: center;  /* Centra la imagen */
-    background-attachment: fixed; /* La imagen no se mueve al hacer scroll */
+    background-size: 100%;
+    background-position: center;
+    background-attachment: fixed;
     background-repeat: no-repeat;
-    background-color: black;      /* Color de respaldo mientras carga */
+    background-color: black;
 
-    /* Tus otros estilos */
     height: 20vh;
 
     color: white;
@@ -25,15 +23,15 @@ body::before {
     backdrop-filter: blur(2px);
 
     background:
-        radial-gradient(circle at center, rgba(0,0,40,0.3), rgba(0,0,0,0.8)),
-        rgba(0,0,0,0.4);
+        radial-gradient(circle at center, rgba(0, 0, 40, 0.3), rgba(0, 0, 0, 0.8)),
+        rgba(0, 0, 0, 0.4);
 
     z-index: -1;
 }
 
 .solar-system {
     position: absolute;
-    bottom: -400px;   /* mueve el centro hacia abajo */
+    bottom: -400px;
     left: 50%;
     transform: translateX(-50%) scale(1.4);
 
@@ -61,7 +59,6 @@ body::before {
     border-radius: 50%;
     top: 50%;
     left: 50%;
-    /* Ahora la órbita sí recibe clics */
     pointer-events: auto;
     cursor: pointer;
     transition: border-color 0.3s ease;
@@ -81,12 +78,10 @@ body::before {
     overflow: hidden;
 }
 
-/* EL CAMBIO CLAVE: Cuando la ÓRBITA recibe hover, el PLANETA crece */
 .orbit:hover .planet {
     transform: translateX(-50%) scale(1.5);
 }
 
-/* Capa de sombra proporcional */
 .planet::after {
     content: "";
     position: absolute;
@@ -110,8 +105,6 @@ body::before {
         transform: translate(-50%, -50%) rotate(92deg);
     }
 }
-
-/* --- Configuración de Planetas con Sombras Proporcionales --- */
 
 .mercury-orbit {
     width: 150px;
@@ -269,39 +262,35 @@ body::before {
 
 
 
-/*Aqui lo del panel despegable*/
 #close-panel {
-    /* Posicionamiento en la esquina superior izquierda */
     position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 1120; /* Para que esté por encima del overlay y del panel */
-
-    /* Estética del botón */
-    width: 40px;
-    height: 40px;
-    background-color: black;
-    border: 2px solid white; /* Un borde para que resalte sobre el fondo */
-    border-radius: 50%; /* Lo hace circular */
-    
-    /* Centrado de la cruz */
+    top: 15px;
+    right: 15px;
+    left: auto;
+    z-index: 1120;
+    width: 35px;
+    height: 35px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    
     cursor: pointer;
     padding: 0;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    color: transparent;
 }
 
-/* Dibujando la X con pseudo-elementos */
 #close-panel::before,
 #close-panel::after {
     content: '';
     position: absolute;
-    width: 20px;
+    width: 16px;
     height: 2px;
-    background-color: white; /* Color de la cruz */
+    background-color: white;
+    transition: background-color 0.3s ease;
 }
 
 #close-panel::before {
@@ -312,83 +301,103 @@ body::before {
     transform: rotate(-45deg);
 }
 
-/* Efecto al pasar el mouse */
 #close-panel:hover {
-    transform: scale(1.1);
-    background-color: #333;
+    transform: scale(1.1) rotate(90deg);
+    background-color: rgba(255, 50, 50, 0.6);
+    border-color: rgba(255, 100, 100, 0.8);
 }
 
 #planet-panel {
-
     position: fixed;
-    bottom: -100%;
-    left: 0;
+    top: 50%;
+    right: -100%;
+    transform: translateY(-50%);
+    width: 400px;
+    max-width: 90vw;
+    height: auto;
+    max-height: 85vh;
+    padding: 30px;
 
-    width: 100%;
-    height: 60%;
+    background: rgba(15, 10, 20, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: -10px 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.05);
 
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(10px);
-
-    transition: bottom 0.6s ease;
-
+    transition: right 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
     z-index: 1100;
-
+    overflow-y: auto;
+    text-align: left;
 }
 
 #planet-panel.open {
-    bottom: 0;
+    right: 5%;
 }
 
 .panel-content h2 {
-
-    font-size: 32px;
+    font-size: 2.2rem;
+    color: #ffffff;
+    margin-top: 10px;
     margin-bottom: 20px;
-
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
 .panel-content table {
-
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-
+    margin-top: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .panel-content td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px 12px;
+    font-size: 0.95rem;
+}
 
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-    padding: 10px;
-
+.panel-content tr:last-child td {
+    border-bottom: none;
 }
 
 .panel-content td:first-child {
-
-    font-weight: bold;
-    text-align: left;
-
+    font-weight: 500;
+    color: #b3b3b3;
+    width: 45%;
 }
 
 .panel-content td:last-child {
-
     text-align: right;
-
+    color: #ffffff;
+    font-weight: bold;
 }
+
+.panel-content p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #cccccc;
+    margin-top: 25px;
+}
+
 .blur-background {
     filter: blur(100%);
 }
 
-/* Overlay para desenfoque de fondo cuando se abre el panel */
 .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.35);
+    background: rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease;
-    z-index: 1000; /* Debajo del panel pero encima del contenido */
+    z-index: 1000;
 }
 
 .overlay.visible {
@@ -398,42 +407,30 @@ body::before {
 
 
 #planet-viewer {
-
     position: fixed;
-
-    bottom: 65%;
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    width: 200px;
-    height: 200px;
-
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
     z-index: 1200;
-
     display: none;
-
+    pointer-events: none;
 }
 
 #planet-sphere {
-
     width: 100%;
     height: 100%;
-
     border-radius: 50%;
-
     background-size: cover;
-
-    animation: rotatePlanet 30s linear infinite;
-
+    animation: rotatePlanet 40s linear infinite;
     box-shadow:
-        inset -40px -40px 80px rgba(0,0,0,0.7),
-        0 0 30px rgba(255,255,255,0.2);
-
+        inset -20px -20px 60px rgba(0, 0, 0, 0.8),
+        inset 10px 10px 20px rgba(255, 255, 255, 0.2),
+        0 0 50px rgba(255, 255, 255, 0.1);
 }
 
 @keyframes rotatePlanet {
-
     from {
         background-position-x: 0;
     }
@@ -441,6 +438,29 @@ body::before {
     to {
         background-position-x: 1000px;
     }
-
 }
 
+@media (max-width: 900px) {
+    #planet-panel {
+        right: 0;
+        top: auto;
+        bottom: -100%;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 20px 20px 0 0;
+        transition: bottom 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    #planet-panel.open {
+        bottom: 0;
+        right: 0;
+    }
+
+    #planet-viewer {
+        top: 20%;
+        left: 50%;
+        width: 200px;
+        height: 200px;
+    }
+}

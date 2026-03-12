@@ -1,20 +1,175 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
-    <title>Sol</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestro Sol</title>
+    <link rel="stylesheet" href="{% static 'planets/css/sun_styles.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 
 <body>
 
-<h1>Nuestro sol</h1>
+    <a href="{% url 'planets:home' %}" class="back-btn">&larr; Volver al Sistema Solar</a>
 
-<a href="{% url 'planets:home' %}">
-Volver al sistema solar
-</a>
+    <div id="canvas-container"></div>
 
+    <div class="main-content" id="scroll-container">
+
+        <section class="section intro">
+            <h1>El Sol</h1>
+            <p>La estrella central de nuestro Sistema Solar</p>
+        </section>
+
+        <section class="section">
+            <div class="info-card">
+                <h2>El Espectro Solar</h2>
+                <p>El Sol emite luz en un amplio espectro electromagnético, principalmente en el rango visible, pero
+                    también en frecuencias infrarrojas y ultravioletas.</p>
+                <p>En el campo de la astronomía, analizar el espectro de la luz solar (y de otras estrellas) mediante
+                    espectroscopia nos permite conocer su composición química, temperatura, densidad e incluso su
+                    movimiento orbital. Las líneas oscuras de absorción presentes en su espectro (conocidas como líneas
+                    de Fraunhofer) actúan como una huella digital que nos revela los elementos químicos específicos que
+                    componen su atmósfera exterior.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="info-card">
+                <h2>Fenómenos Solares</h2>
+                <p>El Sol no es una esfera de gas estática; en realidad tiene un "clima espacial" extremadamente
+                    dinámico y violento. Emite constantemente el <strong>viento solar</strong>, un flujo de partículas
+                    cargadas (principalmente electrones y protones) que viaja por todo el sistema solar a cientos de
+                    kilómetros por segundo.</p>
+                <p>También experimenta perturbaciones masivas como manchas solares, erupciones y eyecciones de masa
+                    coronal (CME). Cuando el viento solar y las enormes nubes de plasma de las CME interactúan con el
+                    campo magnético de la Tierra, generan las espectaculares auroras boreales y australes. Sin embargo,
+                    también pueden representar un peligro, ya que tienen la capacidad de causar disrupciones magnéticas,
+                    interferir con el GPS, dañar satélites y colapsar redes eléctricas en la superficie terrestre.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="info-card">
+                <h2>Proyectos Futuros: Propulsión Solar</h2>
+                <p>Una de las tecnologías más fascinantes para la exploración del espacio profundo son las <strong>velas
+                        solares</strong> (propulsión solar). </p>
+                <p>Aunque los fotones (las partículas elementales de la luz) no tienen masa en reposo, sí poseen momento
+                    lineal. Cuando la luz inmensa del Sol choca contra una superficie grande, ultradelgada y altamente
+                    reflectante como una vela solar, transfiere parte de ese momento, ejerciendo una ligera pero
+                    constante presión.</p>
+                <p>De forma muy similar a como el viento empuja un velero en el mar, esta presión de radiación puede
+                    empujar una pequeña nave espacial. La inmensa ventaja de esto es que permite a una sonda acelerar
+                    gradualmente a velocidades vertiginosas, sin la gravosa necesidad de transportar enormes tanques de
+                    combustible químico. Esto abre la puerta a misiones interestelares de largo alance.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        const scene = new THREE.Scene();
+        const ambientLight = new THREE.AmbientLight(0x404040, 2);
+        scene.add(ambientLight);
+
+        const directLight = new THREE.PointLight(0xffffff, 1.5, 1000);
+        directLight.position.set(50, 20, 50);
+        scene.add(directLight);
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        const textureLoader = new THREE.TextureLoader();
+        const sunTexture = textureLoader.load("{% static 'planets/textures/sun.jpg' %}");
+
+        const geometry = new THREE.SphereGeometry(15, 64, 64);
+
+        const material = new THREE.MeshStandardMaterial({
+            map: sunTexture,
+            emissive: 0xffd060,
+            emissiveMap: sunTexture,
+            emissiveIntensity: 0.6,
+            roughness: 0.8,
+            metalness: 0.2
+        });
+
+        const sun = new THREE.Mesh(geometry, material);
+        scene.add(sun);
+
+        const starsGeometry = new THREE.BufferGeometry();
+        const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.1, transparent: true, opacity: 0.6 });
+        const starsVertices = [];
+        for (let i = 0; i < 2000; i++) {
+            const x = (Math.random() - 0.5) * 500;
+            const y = (Math.random() - 0.5) * 500;
+            const z = -Math.random() * 500 - 50;
+            starsVertices.push(x, y, z);
+        }
+        starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
+        const starField = new THREE.Points(starsGeometry, starsMaterial);
+        scene.add(starField);
+
+        sun.position.x = -22;
+        camera.position.z = 60;
+
+        if (window.innerWidth < 900) {
+            sun.position.x = 0;
+            sun.position.y = 10;
+        }
+
+        let scrollY = window.scrollY;
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            sun.rotation.y += 0.002;
+            starField.rotation.y += 0.0002;
+            sun.position.y += Math.sin(Date.now() * 0.001) * 0.01;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('scroll', () => {
+            scrollY = window.scrollY;
+
+            sun.rotation.y += 0.01;
+            sun.rotation.x = scrollY * 0.001;
+
+            const cards = document.querySelectorAll('.info-card');
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (cardTop < windowHeight * 0.8) {
+                    card.classList.add('visible');
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            if (window.innerWidth < 900) {
+                sun.position.x = 0;
+                sun.position.y = 10;
+            } else {
+                sun.position.x = -22;
+                sun.position.y = 0;
+            }
+        });
+
+        window.dispatchEvent(new Event('scroll'));
+    </script>
 </body>
 
 </html>
