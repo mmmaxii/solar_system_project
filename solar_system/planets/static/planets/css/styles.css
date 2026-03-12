@@ -22,7 +22,7 @@ body::before {
     position: fixed;
     inset: 0;
 
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(2px);
 
     background:
         radial-gradient(circle at center, rgba(0,0,40,0.3), rgba(0,0,0,0.8)),
@@ -275,7 +275,7 @@ body::before {
     position: absolute;
     top: 20px;
     left: 20px;
-    z-index: 1000; /* Para que esté por encima de todo */
+    z-index: 1120; /* Para que esté por encima del overlay y del panel */
 
     /* Estética del botón */
     width: 40px;
@@ -332,7 +332,7 @@ body::before {
 
     transition: bottom 0.6s ease;
 
-    z-index: 200;
+    z-index: 1100;
 
 }
 
@@ -378,20 +378,38 @@ body::before {
     filter: blur(100%);
 }
 
+/* Overlay para desenfoque de fondo cuando se abre el panel */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 1000; /* Debajo del panel pero encima del contenido */
+}
+
+.overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 
 #planet-viewer {
 
     position: fixed;
 
-    bottom: 35%;
+    bottom: 65%;
     left: 50%;
 
     transform: translateX(-50%);
 
-    width: 220px;
-    height: 220px;
+    width: 200px;
+    height: 200px;
 
-    z-index: 300;
+    z-index: 1200;
 
     display: none;
 

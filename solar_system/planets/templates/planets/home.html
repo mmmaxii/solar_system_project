@@ -9,8 +9,11 @@
 
 <body style="background-image: url('{% static "planets/images/bg_stars.jpg" %}')">
 
-  <h1>Solar System Explorer</h1>
+  <div id="overlay" class="overlay"></div>
 
+ <h1>Explorador del Sistema Solar</h1>
+    <p class="subtitle">Visualización interactiva de los planetas</p>
+    
   <div class="solar-system">
 
   <a href="{% url 'planets:star_detail' %}">
@@ -134,6 +137,7 @@ document.querySelectorAll(".orbit").forEach(orbit => {
               document.getElementById("planet-viewer").style.display = "block";
 
               document.getElementById("planet-panel").classList.add("open");
+            document.getElementById("overlay").classList.add("visible");
         });
 
     });
@@ -146,7 +150,15 @@ document.getElementById("close-panel").addEventListener("click", function(){
 
     document.getElementById("planet-viewer").style.display = "none";
 
+      document.getElementById("overlay").classList.remove("visible");
+
 });
+
+    document.getElementById("overlay").addEventListener("click", function(){
+      document.getElementById("planet-panel").classList.remove("open");
+      document.getElementById("planet-viewer").style.display = "none";
+      document.getElementById("overlay").classList.remove("visible");
+    });
 
 </script>
 </body>
