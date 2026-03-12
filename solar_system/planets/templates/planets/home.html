@@ -13,59 +13,141 @@
 
   <div class="solar-system">
 
-    <a href="{% url 'planets:star_detail' %}">
-      <div class="sun"></div>
-    </a>
+  <a href="{% url 'planets:star_detail' %}">
+    <div class="sun"></div>
+  </a>
 
-    <a href="{% url 'planets:planet_detail' 'mercury' %}">
-      <div class="orbit mercury-orbit">
-        <div class="planet mercury"></div>
-      </div>
-    </a>
+  <a href="#" data-planet="mercury">
+    <div class="orbit mercury-orbit">
+      <div class="planet mercury"></div>
+    </div>
+  </a>
 
-    <a href="{% url 'planets:planet_detail' 'venus' %}">
-      <div class="orbit venus-orbit">
-        <div class="planet venus"></div>
-      </div>
-    </a>
+  <a href="#" data-planet="venus">
+    <div class="orbit venus-orbit">
+      <div class="planet venus"></div>
+    </div>
+  </a>
 
-    <a href="{% url 'planets:planet_detail' 'earth' %}">
-      <div class="orbit earth-orbit">
-        <div class="planet earth"></div>
-      </div>
-    </a>
+  <a href="#" data-planet="earth">
+    <div class="orbit earth-orbit">
+      <div class="planet earth"></div>
+    </div>
+  </a>
 
-    <a href="{% url 'planets:planet_detail' 'mars' %}">
-      <div class="orbit mars-orbit">
-        <div class="planet mars"></div>
-      </div>
-    </a>
+  <a href="#" data-planet="mars">
+    <div class="orbit mars-orbit">
+      <div class="planet mars"></div>
+    </div>
+  </a>
 
-    <a href="{% url 'planets:planet_detail' 'jupiter' %}">
-      <div class="orbit jupiter-orbit">
-        <div class="planet jupiter"></div>
-      </div>
-    </a>
+  <a href="#" data-planet="jupiter">
+    <div class="orbit jupiter-orbit">
+      <div class="planet jupiter"></div>
+    </div>
+  </a>
 
-    <a href="{% url 'planets:planet_detail' 'saturn' %}">
-      <div class="orbit saturn-orbit">
-        <div class="planet saturn"></div>
-      </div>
-    </a>
+  <a href="#" data-planet="saturn">
+    <div class="orbit saturn-orbit">
+      <div class="planet saturn"></div>
+    </div>
+  </a>
 
-    <a href="{% url 'planets:planet_detail' 'uranus' %}">
-      <div class="orbit uranus-orbit">
-        <div class="planet uranus"></div>
-      </div>
-    </a>
+  <a href="#" data-planet="uranus">
+    <div class="orbit uranus-orbit">
+      <div class="planet uranus"></div>
+    </div>
+  </a>
 
-    <a href="{% url 'planets:planet_detail' 'neptune' %}">
-      <div class="orbit neptune-orbit">
-        <div class="planet neptune"></div>
-      </div>
-    </a>
+  <a href="#" data-planet="neptune">
+    <div class="orbit neptune-orbit">
+      <div class="planet neptune"></div>
+    </div>
+  </a>
 
-  </div>
+</div>
 
+<div id="planet-viewer">
+        <div id="planet-sphere"></div>
+</div>
+
+<div id="planet-panel">
+
+    <div class="panel-content">
+
+    
+
+    <button id="close-panel">Cerrar</button>
+
+        <h2 id="planet-name"></h2>
+
+        <table>
+            <tr>
+                <td>Radio</td>
+                <td id="planet-radius"></td>
+            </tr>
+
+            <tr>
+                <td>Distancia al Sol</td>
+                <td id="planet-distance"></td>
+            </tr>
+
+            <tr>
+                <td>Periodo orbital</td>
+                <td id="planet-period"></td>
+            </tr>
+        </table>
+
+        <p id="planet-description"></p>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+document.querySelectorAll(".orbit").forEach(orbit => {
+
+    orbit.addEventListener("click", function(event){
+
+        event.preventDefault();
+
+        const planet = this.parentElement.dataset.planet;
+
+        fetch(`/api/planet/${planet}/`)
+        .then(response => response.json())
+        .then(data => {
+
+              document.getElementById("planet-name").textContent = data.name;
+              document.getElementById("planet-radius").textContent = data.radius + " km";
+              document.getElementById("planet-distance").textContent = data.distance + " UA (Unidades Astronomicas)";
+              document.getElementById("planet-period").textContent = data.orbital_period + " días";
+              document.getElementById("planet-description").textContent = data.description;
+
+              const texturePath = `/static/planets/textures/${planet}.jpg`;
+
+              document.getElementById("planet-sphere").style.backgroundImage =
+              `url(${texturePath})`;
+
+              document.getElementById("planet-viewer").style.display = "block";
+
+              document.getElementById("planet-panel").classList.add("open");
+        });
+
+    });
+
+});
+
+document.getElementById("close-panel").addEventListener("click", function(){
+
+    document.getElementById("planet-panel").classList.remove("open");
+
+    document.getElementById("planet-viewer").style.display = "none";
+
+});
+
+</script>
 </body>
 </html>

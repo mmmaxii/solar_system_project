@@ -8,6 +8,18 @@ def home(request):
 def star_detail(request):
     return render(request, "planets/star.html")
 
-#tambien creamos un request para ver los url de los planetas
-def planet_detail(request, name):
-    return render(request, "planets/planet.html", {"name": name})
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from .models import Planet
+
+def planet_data(request, slug):
+
+    planet = get_object_or_404(Planet, slug=slug)
+
+    return JsonResponse({
+        "name": planet.name,
+        "radius": planet.radius,
+        "distance": planet.distance_from_sun,
+        "orbital_period": planet.orbital_period,
+        "description": planet.description
+    })
