@@ -4,8 +4,8 @@ import os
 import traceback
 
 print("Starting ring radial texture generation...")
-img_path = r"c:\Users\Maxlo\OneDrive - Universidad Católica de Chile\(S8+) Bootcamp\Codigos de python, html, SQL\solar_system_project\solar_system\planets\static\planets\textures\saturn_ring.jpg"
-out_path = r"c:\Users\Maxlo\OneDrive - Universidad Católica de Chile\(S8+) Bootcamp\Codigos de python, html, SQL\solar_system_project\solar_system\planets\static\planets\textures\saturn_ring_2d.jpg"
+img_path = r"solar_system/planets/static/planets/textures/saturn_ring.jpg"
+out_path = r"solar_system/planets/static/planets/textures/saturn_ring_2d.jpg"
 
 try:
     img = Image.open(img_path).convert('RGB')

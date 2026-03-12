@@ -27,6 +27,11 @@ La capa de presentación integra múltiples tecnologías para ofrecer una experi
   - Implementación de hojas de estilo modernas utilizando técnicas de diseño de interfaz avanzadas (como Glassmorphism) y disposiciones dinámicas de contenido que reaccionan al desplazamiento de la página.
 - **Renderizado 3D:** Integración del lado del cliente con la biblioteca `Three.js` (cargada a través de CDN) para renderizar modelos 3D interactivos, utilizando de texturas mapeadas localmente.
 
+### 5. Modelos y Panel de Administración
+El proyecto hace uso exhaustivo de la capacidad de base de datos relacional nativa de Django:
+- **Modelos de Datos:** La información detallada de cada planeta (nombre, radio, distancia al Sol, periodo orbital y descripción) se almacena y consulta a través de modelos de Django.
+- **Django Admin:** La población de esta información en la base de datos se facilitó configurando un usuario administrador (`superuser`). A través del sistema de administración web integrado en Django (`/admin`), se incorporaron los registros de los planetas de forma estructurada e intuitiva.
+
 ## Instrucciones de Ejecución
 
 Para iniciar el proyecto en un entorno local, se deben seguir los siguientes pasos desde la terminal, situándose en la raíz del repositorio:
