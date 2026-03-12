@@ -2,164 +2,173 @@
 
 <!doctype html>
 <html>
+
 <head>
   <title>Solar System Explorer</title>
   <link rel="stylesheet" href="{% static 'planets/css/styles.css' %}" />
 </head>
 
-<body style="background-image: url('{% static "planets/images/bg_stars.jpg" %}')">
+<body style="background-image: url('{% static 'planets/images/bg_stars.jpg' %}')">
 
   <div id="overlay" class="overlay"></div>
 
- <h1>Explorador del Sistema Solar</h1>
-    <p class="subtitle">Visualización interactiva de los planetas</p>
-    
+  <h1>Explorador del Sistema Solar</h1>
+  <p class="subtitle">Visualización interactiva de los planetas</p>
+
   <div class="solar-system">
 
-  <a href="{% url 'planets:star_detail' %}">
-    <div class="sun"></div>
-  </a>
+    <a href="{% url 'planets:star_detail' %}">
+      <div class="sun"></div>
+    </a>
 
-  <a href="#" data-planet="mercury">
-    <div class="orbit mercury-orbit">
-      <div class="planet mercury"></div>
-    </div>
-  </a>
+    <a href="#" data-planet="mercury">
+      <div class="orbit mercury-orbit">
+        <div class="planet mercury"></div>
+      </div>
+    </a>
 
-  <a href="#" data-planet="venus">
-    <div class="orbit venus-orbit">
-      <div class="planet venus"></div>
-    </div>
-  </a>
+    <a href="#" data-planet="venus">
+      <div class="orbit venus-orbit">
+        <div class="planet venus"></div>
+      </div>
+    </a>
 
-  <a href="#" data-planet="earth">
-    <div class="orbit earth-orbit">
-      <div class="planet earth"></div>
-    </div>
-  </a>
+    <a href="#" data-planet="earth">
+      <div class="orbit earth-orbit">
+        <div class="planet earth"></div>
+      </div>
+    </a>
 
-  <a href="#" data-planet="mars">
-    <div class="orbit mars-orbit">
-      <div class="planet mars"></div>
-    </div>
-  </a>
+    <a href="#" data-planet="mars">
+      <div class="orbit mars-orbit">
+        <div class="planet mars"></div>
+      </div>
+    </a>
 
-  <a href="#" data-planet="jupiter">
-    <div class="orbit jupiter-orbit">
-      <div class="planet jupiter"></div>
-    </div>
-  </a>
+    <a href="#" data-planet="jupiter">
+      <div class="orbit jupiter-orbit">
+        <div class="planet jupiter"></div>
+      </div>
+    </a>
 
-  <a href="#" data-planet="saturn">
-    <div class="orbit saturn-orbit">
-      <div class="planet saturn"></div>
-    </div>
-  </a>
+    <a href="#" data-planet="saturn">
+      <div class="orbit saturn-orbit">
+        <div class="planet saturn"></div>
+      </div>
+    </a>
 
-  <a href="#" data-planet="uranus">
-    <div class="orbit uranus-orbit">
-      <div class="planet uranus"></div>
-    </div>
-  </a>
+    <a href="#" data-planet="uranus">
+      <div class="orbit uranus-orbit">
+        <div class="planet uranus"></div>
+      </div>
+    </a>
 
-  <a href="#" data-planet="neptune">
-    <div class="orbit neptune-orbit">
-      <div class="planet neptune"></div>
-    </div>
-  </a>
+    <a href="#" data-planet="neptune">
+      <div class="orbit neptune-orbit">
+        <div class="planet neptune"></div>
+      </div>
+    </a>
 
-</div>
+  </div>
 
-<div id="planet-viewer">
-        <div id="planet-sphere"></div>
-</div>
+  <div id="planet-viewer">
+    <div id="planet-sphere"></div>
+    <div id="planet-ring" style="display: none;"></div>
+  </div>
 
-<div id="planet-panel">
+  <div id="planet-panel">
 
     <div class="panel-content">
 
-    
 
-    <button id="close-panel">Cerrar</button>
 
-        <h2 id="planet-name"></h2>
+      <button id="close-panel">Cerrar</button>
 
-        <table>
-            <tr>
-                <td>Radio</td>
-                <td id="planet-radius"></td>
-            </tr>
+      <h2 id="planet-name"></h2>
 
-            <tr>
-                <td>Distancia al Sol</td>
-                <td id="planet-distance"></td>
-            </tr>
+      <table>
+        <tr>
+          <td>Radio</td>
+          <td id="planet-radius"></td>
+        </tr>
 
-            <tr>
-                <td>Periodo orbital</td>
-                <td id="planet-period"></td>
-            </tr>
-        </table>
+        <tr>
+          <td>Distancia al Sol</td>
+          <td id="planet-distance"></td>
+        </tr>
 
-        <p id="planet-description"></p>
+        <tr>
+          <td>Periodo orbital</td>
+          <td id="planet-period"></td>
+        </tr>
+      </table>
+
+      <p id="planet-description"></p>
 
     </div>
 
-</div>
+  </div>
 
 
 
-<script>
+  <script>
 
-document.querySelectorAll(".orbit").forEach(orbit => {
+    document.querySelectorAll(".orbit").forEach(orbit => {
 
-    orbit.addEventListener("click", function(event){
+      orbit.addEventListener("click", function (event) {
 
         event.preventDefault();
 
         const planet = this.parentElement.dataset.planet;
 
         fetch(`/api/planet/${planet}/`)
-        .then(response => response.json())
-        .then(data => {
+          .then(response => response.json())
+          .then(data => {
 
-              document.getElementById("planet-name").textContent = data.name;
-              document.getElementById("planet-radius").textContent = data.radius + " km";
-              document.getElementById("planet-distance").textContent = data.distance + " UA (Unidades Astronomicas)";
-              document.getElementById("planet-period").textContent = data.orbital_period + " días";
-              document.getElementById("planet-description").textContent = data.description;
+            document.getElementById("planet-name").textContent = data.name;
+            document.getElementById("planet-radius").textContent = data.radius + " km";
+            document.getElementById("planet-distance").textContent = data.distance + " UA (Unidad Astronómica)";
+            document.getElementById("planet-period").textContent = data.orbital_period + " días";
+            document.getElementById("planet-description").textContent = data.description;
 
-              const texturePath = `/static/planets/textures/${planet}.jpg`;
+            const texturePath = `/static/planets/textures/${planet}.jpg`;
 
-              document.getElementById("planet-sphere").style.backgroundImage =
+            document.getElementById("planet-sphere").style.backgroundImage =
               `url(${texturePath})`;
 
-              document.getElementById("planet-viewer").style.display = "block";
+            if (planet === 'saturn') {
+              document.getElementById("planet-ring").style.display = "block";
+            } else {
+              document.getElementById("planet-ring").style.display = "none";
+            }
 
-              document.getElementById("planet-panel").classList.add("open");
+            document.getElementById("planet-viewer").style.display = "block";
+
+            document.getElementById("planet-panel").classList.add("open");
             document.getElementById("overlay").classList.add("visible");
-        });
+          });
+
+      });
 
     });
 
-});
+    document.getElementById("close-panel").addEventListener("click", function () {
 
-document.getElementById("close-panel").addEventListener("click", function(){
+      document.getElementById("planet-panel").classList.remove("open");
 
-    document.getElementById("planet-panel").classList.remove("open");
-
-    document.getElementById("planet-viewer").style.display = "none";
+      document.getElementById("planet-viewer").style.display = "none";
 
       document.getElementById("overlay").classList.remove("visible");
 
-});
+    });
 
-    document.getElementById("overlay").addEventListener("click", function(){
+    document.getElementById("overlay").addEventListener("click", function () {
       document.getElementById("planet-panel").classList.remove("open");
       document.getElementById("planet-viewer").style.display = "none";
       document.getElementById("overlay").classList.remove("visible");
     });
 
-</script>
+  </script>
 </body>
+
 </html>
