@@ -1,20 +1,17 @@
-{% load static %}
+{% load static %} {% comment %} Este html no lo ocupe, me decidi por hacer
+tarjetas que se despliegan en el home, y no paginas dinamicas como esta. Pero la
+dejo pq pienso que puedo romper algo. Como bien dicen: si funciona, no lo
+toques. {% endcomment %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
-<head>
+  <head>
     <title>{{ name }}</title>
-</head>
+  </head>
 
-<body>
+  <body>
+    <h1>Planet: {{ name }}</h1>
 
-<h1>Planet: {{ name }}</h1>
-
-<a href="{% url 'planets:home' %}">
-Volver al sistema solar
-</a>
-
-</body>
-
+    <a href="{% url 'planets:home' %}"> Volver al sistema solar </a>
+  </body>
 </html>

@@ -82,6 +82,10 @@ body::before {
     transform: translateX(-50%) scale(1.5);
 }
 
+/* La sombra volumétrica de los planetas se simula inyectando un pseudo-elemento (::after) que 
+   cubre exactamente el área del planeta, aplicando una sombra interna (inset box-shadow) 
+   alineada de forma geométrica opuesta al Sol para dar ilusión de perspectiva 3D realista.
+   Es increible todo lo que se puede hacer con css :D */
 .planet::after {
     content: "";
     position: absolute;
@@ -318,6 +322,7 @@ body::before {
     max-height: 85vh;
     padding: 30px;
 
+    /* Patrón Glassmorphism: Fondo oscuro translúcido con efecto de desenfoque aplicado al fondo continuo */
     background: rgba(15, 10, 20, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 20px;

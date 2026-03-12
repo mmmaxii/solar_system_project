@@ -102,6 +102,7 @@ body::before {
 }
 
 .info-card {
+    /* Efecto Glassmorphism: Combinación de fondo translúcido y filtro de desenfoque aplicado al backdrop */
     background: rgba(15, 10, 20, 0.6);
     border: 1px solid rgba(255, 200, 100, 0.15);
     border-radius: 20px;
@@ -109,6 +110,8 @@ body::before {
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 150, 0, 0.05);
+
+    /* Estado inicial para animación interactiva de entrada (on-scroll) */
     transform: translateY(50px);
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
