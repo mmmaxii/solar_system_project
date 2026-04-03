@@ -9,6 +9,8 @@ class Planet(models.Model):
     radius = models.FloatField()
     distance_from_sun = models.FloatField()
     orbital_period = models.FloatField()
+    mass_earth = models.FloatField(null=True, blank=True)
+    temperature = models.CharField(max_length=50, null=True, blank=True)
 
     description = models.TextField()
 

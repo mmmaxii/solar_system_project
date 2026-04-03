@@ -21,6 +21,8 @@ def planet_data(request, slug):
     return JsonResponse({
         "name": planet.name,
         "radius": planet.radius,
+        "mass_earth": planet.mass_earth,
+        "temperature": planet.temperature,
         "distance": planet.distance_from_sun,
         "orbital_period": planet.orbital_period,
         "description": planet.description

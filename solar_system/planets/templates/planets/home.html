@@ -9,10 +9,11 @@
 
   <body
     style="
-      background-image: url(&quot;{% static &quot;planets/images/bg_stars.jpg&quot; %}&quot;);
+      background-image: url("{% static 'planets/images/bg_stars.jpg' %}");
     "
   >
     <div id="overlay" class="overlay"></div>
+    <div id="hover-name-display" class="hover-name"></div>
 
     <h1>Explorador del Sistema Solar</h1>
     <p class="subtitle">Visualización interactiva de los planetas</p>
@@ -89,6 +90,16 @@
           </tr>
 
           <tr>
+            <td>Masa</td>
+            <td id="planet-mass"></td>
+          </tr>
+
+          <tr>
+            <td>Temperatura</td>
+            <td id="planet-temp"></td>
+          </tr>
+
+          <tr>
             <td>Distancia al Sol</td>
             <td id="planet-distance"></td>
           </tr>
@@ -104,6 +115,36 @@
     </div>
 
     <script>
+      const hoverDisplay = document.getElementById("hover-name-display");
+      const planetNamesES = {
+        "mercury": "Mercurio",
+        "venus": "Venus",
+        "earth": "Tierra",
+        "mars": "Marte",
+        "jupiter": "Júpiter",
+        "saturn": "Saturno",
+        "uranus": "Urano",
+        "neptune": "Neptuno"
+      };
+
+      document.querySelector(".sun").parentElement.addEventListener("mouseenter", function() {
+          hoverDisplay.textContent = "Sol";
+          hoverDisplay.classList.add("visible");
+      });
+      document.querySelector(".sun").parentElement.addEventListener("mouseleave", function() {
+          hoverDisplay.classList.remove("visible");
+      });
+
+      document.querySelectorAll("[data-planet]").forEach((link) => {
+        link.addEventListener("mouseenter", function () {
+          hoverDisplay.textContent = planetNamesES[this.dataset.planet] || this.dataset.planet;
+          hoverDisplay.classList.add("visible");
+        });
+        link.addEventListener("mouseleave", function () {
+          hoverDisplay.classList.remove("visible");
+        });
+      });
+
       document.querySelectorAll(".orbit").forEach((orbit) => {
         orbit.addEventListener("click", function (event) {
           event.preventDefault();
@@ -114,12 +155,16 @@
             .then((response) => response.json())
             .then((data) => {
               document.getElementById("planet-name").textContent = data.name;
-              document.getElementById("planet-radius").textContent =
-                data.radius + " km";
+              document.getElementById("planet-radius").innerHTML =
+                Number(data.radius).toLocaleString('de-DE') + " km<br><small style='color: #aaa; font-size: 0.8em;'>" + (data.radius / 6371).toLocaleString('de-DE', {maximumFractionDigits: 2}) + " R<sub>&oplus;</sub></small>";
+              document.getElementById("planet-mass").innerHTML =
+                (data.mass_earth ? Number(data.mass_earth).toLocaleString('de-DE', {maximumFractionDigits: 4}) : "-") + " M<sub>&oplus;</sub>";
+              document.getElementById("planet-temp").textContent =
+                data.temperature ? data.temperature : "-";
               document.getElementById("planet-distance").textContent =
-                data.distance + " UA (Unidad Astronómica)";
+                Number(data.distance).toLocaleString('de-DE') + " UA";
               document.getElementById("planet-period").textContent =
-                data.orbital_period + " días";
+                Number(data.orbital_period).toLocaleString('de-DE') + " días";
               document.getElementById("planet-description").textContent =
                 data.description;
 

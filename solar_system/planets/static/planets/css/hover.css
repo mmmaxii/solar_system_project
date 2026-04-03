@@ -1,0 +1,27 @@
+.hover-name {
+    position: fixed;
+    top: 30px;
+    right: 40px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    background: rgba(15, 10, 20, 0.6);
+    padding: 12px 25px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.05);
+    label: hover-name;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform: translateY(-15px);
+    z-index: 1000;
+    pointer-events: none;
+    letter-spacing: 2px;
+}
+
+.hover-name.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
